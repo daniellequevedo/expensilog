@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ReportContext } from '../../containers/pages/ReportContext';
+import { user, statements } from '../../utils/data.js'
 
-const MonthlyStatementSummary = () => {
-  return (
-    <div className='large-table large-table-summary monthly-statement-grid'>
-      <div id=''>
-        <input type='checkbox' />
+const MonthlyStatementSummary = props => {
+
+  const { state, dispatch } = useContext(ReportContext);
+
+  const onReportClick = id => {
+    dispatch({ type: 'statementSelected', payload: id });
+  }
+
+  let displaySummary = statement => {
+    return (
+      <div key={statement.id}
+        className='large-table large-table-summary monthly-statement-grid'
+        onClick={() => onReportClick(statement.id)}>
+        <div id=''>
+          <input type='checkbox' />
+        </div>
+        <div id=''>
+          Monthly Statement Report - {statement.from} - {statement.name}
+        </div>
+        <div id='' className='monthly-statement-summary-total'>
+          <div className={`status-label ${statement.status}`}>{statement.status}</div>
+          ${statement.amount.toFixed(2)}
+        </div>
+        <div id=''>
+          {statement.from}
+        </div>
+        <div id=''>
+          {statement.to}
+        </div>
+        <div id=''>
+          {statement.date}
+        </div>
       </div>
-      <div id=''>
-        Monthly Statement Report - Danielle Quevedo - June
-      </div>
-      <div id='' className='monthly-statement-summary-total'>
-        <div className='status-label approved'>Approved</div>
-        $1,234.00
-      </div>
-      <div id=''>
-        Danielle Quevedo
-      </div>
-      <div id=''>
-        Joe Schmoe
-      </div>
-      <div id=''>
-        Aug 10, 2019
-      </div>
-    </div>    
-  );
+    );
+  };
+
+  return state.selectedStatements.map(displaySummary);
 }
 
 export default MonthlyStatementSummary;

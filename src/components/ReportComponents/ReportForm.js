@@ -1,23 +1,25 @@
 import React from 'react';
 import DragDrop from '../../components/ReportComponents/DragDrop';
 import Avatar from '../Avatar';
-import { userInfo } from 'os';
 
-const ReportForm = () => {
+const ReportForm = (props) => {
+  console.log(props);
+  let monthOptions = props.availableMonths.map(month => <option>{month}</option>);
 
-  let user = {
-    id: '432345',
-    name: 'Jennifer',
-    avatarImg: 'jennifer.png',
-    supervisor: {
-      id: '98723',
-      name: 'Steve',
-      avatarImg: 'steve.png',
-    }
-  };
+  let selectBox = (<div className='form-control'>
+    <label>Report</label>
+    <select onChange={props.handleOnDateChange}>
+      <option>Select Month</option>
+      {monthOptions}
+    </select>
+  </div>);
+  console.log('props.newForm ', props.newForm);
+  // if (!props.newForm) {
+  //   selectBox = '';
+  // }
 
   return (
-    <React.Fragment>
+    <>
       <header>
         <h1>Report Form</h1>
       </header>
@@ -32,31 +34,22 @@ const ReportForm = () => {
 
           <div className='report-header'>
             <div className='status-id-wrapper'>
-              <div className='status-label open'>Open</div>
-              <div className='report-id'><span>ID:</span>89349845</div>
-
+              <div className='status-label open'>{props.status}</div>
+              <div className='report-id'><span>ID:</span>{props.id}</div>
             </div>
-
-            <div className='form-control'>
-              <label>Report</label>
-              <select>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-              </select>
-            </div>
+            {selectBox}
           </div>
 
           <div className='report-header'>
-            <div className='report-name'>Expense Report May 2019</div>
+            <div className='report-name'>Expense Report {props.name}</div>
           </div>
 
           <div>
             <div>
               <DragDrop>
                 <div className='report-from-to'>
-                  <div className=''><Avatar img={user.avatarImg} />From: <span>{user.name}</span></div>
-                  <div className=''><Avatar img={user.supervisor.avatarImg} />To: <span>{user.supervisor.name}</span></div>
+                  <div className=''><Avatar img={props.user.avatarImg} />From: <span>{props.user.name}</span></div>
+                  <div className=''><Avatar img={props.user.supervisor.avatarImg} />To: <span>{props.user.supervisor.name}</span></div>
                 </div>
               </DragDrop>
             </div>
@@ -64,8 +57,7 @@ const ReportForm = () => {
         </div>
 
       </div>
-
-    </React.Fragment >
+    </>
   );
 }
 

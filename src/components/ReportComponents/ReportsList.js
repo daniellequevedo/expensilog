@@ -3,18 +3,20 @@ import ReportActions from '../ReportComponents/ReportActions';
 import ReportFilters from '../ReportComponents/ReportFilters';
 import MonthlyStatementsTable from '../ReportComponents/MonthlyStatementsTable';
 
-const ReportsList = () => {
+
+const ReportsList = ({onReportClick, onNewReportClick}) => {
+
   return (
-    <React.Fragment>
+    <>
       <header>
         <h1>Reports</h1>
-        <ReportActions />
+        <ReportActions onNewReportClick={onNewReportClick} />
       </header>
       <div className='content-wrapper'>
         <ReportFilters />
-        <MonthlyStatementsTable />
+        <MonthlyStatementsTable onReportClick={onReportClick} />
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

@@ -155,15 +155,16 @@
   grid-template-columns: 20px 2fr 1fr 1fr 1fr 1fr;
 }
 
-.large-table-summary {
+.large-table-summary.monthly-statement-grid {
   border-radius: 20px;
+  margin: 0 0 10px;
 }
 
 .monthly-statement-summary-total {
   text-align: right;
 }
 
-.large-table .monthly-statement-summary-total {
+.large-table-summary .monthly-statement-summary-total {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
